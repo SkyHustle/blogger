@@ -12,7 +12,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.create(article_params)
+    @article = Article.new(article_params)
     if @article.save
       redirect_to articles_path
     else
@@ -20,6 +20,15 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(article_params)
+      redirect_to article_path
+    else
+      render :edit
+    end
+  end
+  
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
@@ -30,9 +39,6 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  def update
-    
-  end
 
   private
 
